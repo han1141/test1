@@ -23,11 +23,9 @@ def get_stock_hist_data(symbol, period="daily", start_date=None, end_date=None):
         # 对于分钟级数据，使用正确的函数和参数
         if period in ["1", "5", "15", "30", "60"]:
             # 分钟级数据
-            stock_data = ak.stock_zh_a_hist_min_em(
+            stock_data = ak.stock_zh_a_minute(
                 symbol=symbol,
                 period=period,
-                start_date=start_date,
-                end_date=end_date,
                 adjust="qfq"
             )
         else:
@@ -55,12 +53,12 @@ def get_stock_hist_data(symbol, period="daily", start_date=None, end_date=None):
 def main():
     """主函数，执行数据获取、处理和保存"""
     # 1. 设置参数
-    symbol = "601398"  # 平安银行，可以修改为其他A股代码
-    period = "5"   # 60分钟K线数据
+    symbol = "601138"  # 平安银行，可以修改为其他A股代码
+    period = "daily"   # 60分钟K线数据
 
     # 2. 计算时间范围（最近22天）
     end_dt = datetime.datetime.now()
-    start_dt = end_dt - datetime.timedelta(days=20)
+    start_dt = end_dt - datetime.timedelta(days=1000)
 
     # 对于分钟级数据，akshare需要的日期格式为 "YYYY-MM-DD HH:MM:SS"
     # 对于日级数据，需要 "YYYYMMDD" 格式
